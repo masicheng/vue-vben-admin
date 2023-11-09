@@ -16,6 +16,10 @@ import { ContentTypeEnum, RequestEnum, ResultEnum } from '/@/enums/httpEnum';
 import { useGlobSetting } from '/@/hooks/setting';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
+import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
+import { isString, isUndefined, isNull, isEmpty } from '/@/utils/is';
+import { getToken } from '/@/utils/auth';
+import { setObjToUrlParams, deepMerge } from '/@/utils';
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
 import { useUserStoreWithOut } from '/@/store/modules/user';
 import { deepMerge, setObjToUrlParams } from '/@/utils';
@@ -66,7 +70,7 @@ const transform: AxiosTransform = {
     if (hasSuccess) {
       let successMsg = message;
 
-      if (isNull(successMsg) || isUnDef(successMsg) || isEmpty(successMsg)) {
+      if (isNull(successMsg) || isUndefined(successMsg) || isEmpty(successMsg)) {
         successMsg = t(`sys.api.operationSuccess`);
       }
 
