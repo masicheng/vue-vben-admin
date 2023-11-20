@@ -1,6 +1,7 @@
 import { defineApplicationConfig } from '@vben/vite-config';
 
 export default defineApplicationConfig({
+  envPrefix: ['VITE_', 'HAODA_'],
   overrides: {
     base: './',
     optimizeDeps: {
@@ -29,12 +30,7 @@ export default defineApplicationConfig({
           target: 'http://172.16.10.104:18000',
           changeOrigin: true,
           ws: true,
-        },
-        '/hd-office': {
-          target: 'http://172.16.0.28:808',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/hd-office/, '/'),
-        },
+        }
       },
     },
   },
