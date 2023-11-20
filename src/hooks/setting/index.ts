@@ -8,7 +8,6 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     VITE_GLOB_API_URL,
     VITE_GLOB_API_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
-    VITE_GLOB_ZXTID,
     VITE_GLOB_DOWNLOAD_URL,
   } = getAppEnvConfig();
 
@@ -20,7 +19,6 @@ export const useGlobSetting = (): Readonly<GlobConfig> => {
     urlPrefix: VITE_GLOB_API_URL_PREFIX,
     uploadUrl: VITE_GLOB_UPLOAD_URL,
     downloadUrl: VITE_GLOB_DOWNLOAD_URL,
-    zxtId: VITE_GLOB_ZXTID,
   };
   return glob as Readonly<GlobConfig>;
 };

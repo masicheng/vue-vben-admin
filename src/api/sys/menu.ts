@@ -23,7 +23,7 @@ export const getMenuList = () => {
   return defHttp
     .get<getMenuListResultModel>({
       url: Api.GetMenuList,
-      params: { sszxt: import.meta.env.VITE_GLOB_ZXTID },
+      params: { sszxt: import.meta.env.HAODA_GLOB_ZXTID },
     })
     .then((res) => {
       return buildRoutes(transformRoutes(res), ignoreAuthRouteObj);

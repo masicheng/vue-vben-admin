@@ -34,7 +34,6 @@ export function getAppEnvConfig() {
     VITE_GLOB_APP_TITLE,
     VITE_GLOB_API_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
-    VITE_GLOB_ZXTID,
     VITE_GLOB_DOWNLOAD_URL,
   } = ENV;
   let { VITE_GLOB_API_URL } = ENV;
@@ -48,7 +47,6 @@ export function getAppEnvConfig() {
     VITE_GLOB_API_URL,
     VITE_GLOB_API_URL_PREFIX,
     VITE_GLOB_UPLOAD_URL,
-    VITE_GLOB_ZXTID,
     VITE_GLOB_DOWNLOAD_URL,
   };
 }

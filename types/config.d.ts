@@ -152,7 +152,6 @@ export interface GlobConfig {
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
-  zxtId?: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -163,6 +162,5 @@ export interface GlobEnvConfig {
   VITE_GLOB_API_URL_PREFIX?: string;
   // Upload url
   VITE_GLOB_UPLOAD_URL?: string;
-  VITE_GLOB_ZXTID?: string;
   VITE_GLOB_DOWNLOAD_URL?: string;
 }

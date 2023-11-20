@@ -1,9 +1,8 @@
 import { defHttp } from '/@/utils/http/axios';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
-
 import { ErrorMessageMode } from '/#/axios';
 import { ContentTypeEnum } from '/@/enums/httpEnum';
-
+const{HAODA_GLOB_CLIENTID,HAODA_GLOB_SECRETID}=import.meta.env
 enum Api {
   Login = '/oauth2/token',
   Logout = '/logout',
@@ -23,7 +22,7 @@ export function loginApi(params: LoginParams, mode: ErrorMessageMode = 'modal') 
           params: params,
           headers: {
             Authorization:
-              'Basic ' + window.btoa('hdcloud-jrtjxt:A59C750196EBF43F696B58667068C452'),
+              'Basic ' + window.btoa(`${HAODA_GLOB_CLIENTID}:${HAODA_GLOB_SECRETID}`),
             'Content-Type': ContentTypeEnum.FORM_URLENCODED,
           },
         },
