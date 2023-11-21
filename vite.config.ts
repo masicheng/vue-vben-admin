@@ -1,9 +1,9 @@
 import { defineApplicationConfig } from '@vben/vite-config';
 
 export default defineApplicationConfig({
-  envPrefix: ['VITE_', 'HAODA_'],
   overrides: {
     base: './',
+    envPrefix: ['VITE_', 'HAODA_'],
     optimizeDeps: {
       include: [
         'echarts/core',
