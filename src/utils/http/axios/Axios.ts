@@ -244,7 +244,7 @@ export class VAxios {
     if (opt?.isCache) {
       const cache = axiosCache.getCache(config);
       if (cache) {
-        return cache;
+        return Promise.resolve(cache);
       }
     }
     return new Promise((resolve, reject) => {
