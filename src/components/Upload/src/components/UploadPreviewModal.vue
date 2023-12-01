@@ -10,18 +10,26 @@
     <FileList :dataSource="fileListRef" :columns="columns" :actionColumn="actionColumn" />
   </BasicModal>
 </template>
-<script lang="ts">
-  import { defineComponent, watch, ref } from 'vue';
+<script lang="ts" setup>
+  import { watch, ref } from 'vue';
   import FileList from './FileList.vue';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
+  import { BasicModal, useModalInner } from '@/components/Modal';
   import { previewProps } from '../props';
   import { PreviewFileItem } from '../types/typing';
-  import { downloadByUrl } from '/@/utils/file/download';
+  import { downloadByUrl } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { isArray } from '/@/utils/is';
-  import { useGlobSetting } from '/@/hooks/setting';
-  import { useUserStore } from '/@/store/modules/user';
+  import { useI18n } from '@/hooks/web/useI18n';
+  import { isArray } from '@/utils/is';
+  import { useGlobSetting } from '@/hooks/setting';
+  import { useUserStore } from '@/store/modules/user';
+
+  const props = defineProps(previewProps);
+
+  const emit = defineEmits(['list-change', 'register', 'delete']);
+
+  const columns = createPreviewColumns() as any[];
+  const actionColumn = createPreviewActionColumn({ handleRemove, handleDownload }) as any;
+
 
   export default defineComponent({
     components: { BasicModal, FileList },
@@ -68,22 +76,11 @@
         }
       }
 
-      // 下载
-      function handleDownload(record: PreviewFileItem) {
-        const { url = '' } = record;
-        downloadByUrl({ url });
-      }
-
-      return {
-        t,
-        register,
-        closeModal,
-        fileListRef,
-        columns: createPreviewColumns() as any[],
-        actionColumn: createPreviewActionColumn({ handleRemove, handleDownload }) as any,
-      };
-    },
-  });
+  // 下载
+  function handleDownload(record: PreviewFileItem) {
+    const { url = '' } = record;
+    downloadByUrl({ url });
+  }
 </script>
 <style lang="less">
   .upload-preview-modal {

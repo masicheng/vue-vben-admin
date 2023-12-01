@@ -31,4 +31,4 @@ pnpm-debug.log*
 .history
 .svn
 
-demo
+src/views/demo

@@ -2,30 +2,25 @@
 // The axios configuration can be changed according to the project, just change the file, other files can be left unchanged
 
 import type { AxiosInstance, AxiosResponse } from 'axios';
-
-import axios from 'axios';
 import { clone } from 'lodash-es';
-import qs from 'qs';
-import { VAxios } from './Axios';
-import { AxiosRefreshToken } from './axiosRefreshToken';
+import type { RequestOptions, Result } from '#/axios';
 import type { AxiosTransform, CreateAxiosOptions } from './axiosTransform';
+import { VAxios } from './Axios';
 import { checkStatus } from './checkStatus';
-import { formatRequestDate, joinTimestamp } from './helper';
-import type { RequestOptions, Result } from '/#/axios';
-import { ContentTypeEnum, RequestEnum, ResultEnum } from '/@/enums/httpEnum';
-import { useGlobSetting } from '/@/hooks/setting';
-import { useI18n } from '/@/hooks/web/useI18n';
-import { useMessage } from '/@/hooks/web/useMessage';
-import { RequestEnum, ResultEnum, ContentTypeEnum } from '/@/enums/httpEnum';
-import { isString, isUndefined, isNull, isEmpty } from '/@/utils/is';
-import { getToken } from '/@/utils/auth';
-import { setObjToUrlParams, deepMerge } from '/@/utils';
-import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
-import { useUserStoreWithOut } from '/@/store/modules/user';
-import { deepMerge, setObjToUrlParams } from '/@/utils';
-import { getToken } from '/@/utils/auth';
-import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
-import { isEmpty, isNull, isString, isUnDef } from '/@/utils/is';
+import { useGlobSetting } from '@/hooks/setting';
+import { useMessage } from '@/hooks/web/useMessage';
+import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/httpEnum';
+import { isString, isUndefined, isNull, isEmpty } from '@/utils/is';
+import { getToken } from '@/utils/auth';
+import { setObjToUrlParams, deepMerge } from '@/utils';
+import { useErrorLogStoreWithOut } from '@/store/modules/errorLog';
+import { useI18n } from '@/hooks/web/useI18n';
+import { joinTimestamp, formatRequestDate } from './helper';
+import { useUserStoreWithOut } from '@/store/modules/user';
+import { AxiosRetry } from '@/utils/http/axios/axiosRetry';
+import axios from 'axios';
+import qs from 'qs';
+import { AxiosRefreshToken } from './axiosRefreshToken';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;

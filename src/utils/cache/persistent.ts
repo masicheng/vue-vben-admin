@@ -1,8 +1,8 @@
-import type { LockInfo, UserInfo } from '/#/store';
-import type { ProjectConfig } from '/#/config';
+import type { LockInfo, UserInfo } from '#/store';
+import type { ProjectConfig } from '#/config';
 import type { RouteLocationNormalized } from 'vue-router';
 
-import { createLocalStorage, createSessionStorage } from '/@/utils/cache';
+import { createLocalStorage, createSessionStorage } from '@/utils/cache';
 import { Memory } from './memory';
 import {
   TOKEN_KEY,

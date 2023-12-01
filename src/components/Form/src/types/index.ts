@@ -117,5 +117,8 @@ export type ComponentType =
   | 'Rate'
   | 'Divider'
   | 'ApiTransfer'
+  | 'Transfer'
+  | 'CropperAvatar'
+  | 'BasicTitle'
   | 'HdCaseNumber'
   | 'HdDateRange';
