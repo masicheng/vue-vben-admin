@@ -30,51 +30,45 @@
   const columns = createPreviewColumns() as any[];
   const actionColumn = createPreviewActionColumn({ handleRemove, handleDownload }) as any;
 
+  const [register] = useModalInner();
+  const { t } = useI18n();
+  const { downloadUrl = '' } = useGlobSetting();
+  const userStore = useUserStore();
+  const fileListRef = ref<PreviewFileItem[]>([]);
+  watch(
+    () => props.value,
+    (value) => {
+      if (!isArray(value)) value = [];
+      fileListRef.value = value
+        .filter((item) => !!item)
+        .map((item) => {
+          return {
+            fileID: item?.fjid,
+            url: getUrlbyFjid(item?.fjid),
+            type: item?.fjgs || item?.clgs,
+            name: item?.fjmc || item?.clmc,
+          } as PreviewFileItem;
+        });
+    },
+    { immediate: true },
+  );
 
-  export default defineComponent({
-    components: { BasicModal, FileList },
-    props: previewProps,
-    emits: ['list-change', 'register', 'delete'],
-    setup(props, { emit }) {
-      const [register, { closeModal }] = useModalInner();
-      const { t } = useI18n();
-      const { downloadUrl = '' } = useGlobSetting();
-      const userStore = useUserStore();
-      const fileListRef = ref<PreviewFileItem[]>([]);
-      watch(
-        () => props.value,
-        (value) => {
-          if (!isArray(value)) value = [];
-          fileListRef.value = value
-            .filter((item) => !!item)
-            .map((item) => {
-              return {
-                fileID: item?.fjid,
-                url: getUrlbyFjid(item?.fjid),
-                type: item?.fjgs || item?.clgs,
-                name: item?.fjmc || item?.clmc,
-              } as PreviewFileItem;
-            });
-        },
-        { immediate: true },
-      );
+  function getUrlbyFjid(fjid) {
+    return `${downloadUrl}?fjid=${fjid}&access_token=${userStore.getToken}`;
+  }
 
-      function getUrlbyFjid(fjid) {
-        return `${downloadUrl}?fjid=${fjid}&access_token=${userStore.getToken}`;
-      }
-
-      // 删除
-      function handleRemove(record: PreviewFileItem) {
-        const index = fileListRef.value.findIndex((item) => item.fileID === record.fileID);
-        console.log(index);
-        if (index !== -1) {
-          const removed = fileListRef.value.splice(index, 1);
-          const fileList = props.value;
-          fileList.splice(index, 1);
-          emit('delete', removed[0].fileID);
-          emit('list-change', fileList);
-        }
-      }
+  // 删除
+  function handleRemove(record: PreviewFileItem) {
+    const index = fileListRef.value.findIndex((item) => item.fileID === record.fileID);
+    console.log(index);
+    if (index !== -1) {
+      const removed = fileListRef.value.splice(index, 1);
+      const fileList = props.value;
+      fileList.splice(index, 1);
+      emit('delete', removed[0].fileID);
+      emit('list-change', fileList);
+    }
+  }
 
   // 下载
   function handleDownload(record: PreviewFileItem) {
