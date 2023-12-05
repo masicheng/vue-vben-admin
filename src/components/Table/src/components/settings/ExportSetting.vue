@@ -37,16 +37,16 @@
 
 <script setup lang="ts">
   import { Tooltip, Checkbox, CheckboxGroup, Row, Col, Card } from 'ant-design-vue';
-  import Icon from '/@/components/Icon/Icon.vue';
+  import Icon from '@/components/Icon/Icon.vue';
   import { ref, computed, watch } from 'vue';
-  import { useI18n } from '/@/hooks/web/useI18n';
+  import { useI18n } from '@/hooks/web/useI18n';
   import { useTableContext } from '../../hooks/useTableContext';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { BasicForm, FormSchema, useForm } from '/@/components/Form/index';
-  import { isFunction } from '/@/utils/is';
-  import { useMessage } from '/@/hooks/web/useMessage';
-  import { jsonToSheetXlsx, JsonToSheet } from '/@/components/Excel';
-  import { BasicTableParams } from '/@/api/model/baseModel';
+  import { BasicModal, useModalInner } from '@/components/Modal';
+  import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
+  import { isFunction } from '@/utils/is';
+  import { useMessage } from '@/hooks/web/useMessage';
+  import { jsonToSheetXlsx, JsonToSheet } from '@/components/Excel';
+  import { BasicTableParams } from '@/api/model/baseModel';
   import { saveAs } from 'file-saver';
   import { pick } from 'lodash-es';
 

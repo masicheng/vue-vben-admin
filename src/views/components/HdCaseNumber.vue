@@ -44,9 +44,9 @@
   import dayjs from 'dayjs';
   // import {formi}
   import { FormItemRest, Input, Select, InputNumber, Row, Col } from 'ant-design-vue';
-  import { getDictList, getJgxxWhByFjm } from '/@/api/sys/dictionary';
-  import { useUserStore } from '/@/store/modules/user';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
+  import { getDictList, getJgxxWhByFjm } from '@/api/sys/dictionary';
+  import { useUserStore } from '@/store/modules/user';
+  import { useRuleFormItem } from '@/hooks/component/useFormItem';
 
   type OptionsItem = { label: string; value: string; disabled?: boolean };
   type CaseNumberFields = {

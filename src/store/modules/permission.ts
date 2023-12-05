@@ -13,8 +13,8 @@ import projectSetting from '@/settings/projectSetting';
 
 import { PermissionModeEnum } from '@/enums/appEnum';
 
-import { asyncRoutes, basicRoutes } from '/@/router/routes';
-import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
+import { asyncRoutes, basicRoutes } from '@/router/routes';
+import { ERROR_LOG_ROUTE, PAGE_NOT_FOUND_ROUTE } from '@/router/routes/basic';
 
 import { filter } from '@/utils/helper/treeHelper';
 

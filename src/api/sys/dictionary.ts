@@ -1,4 +1,4 @@
-import { defHttp } from '/@/utils/http/axios';
+import { defHttp } from '@/utils/http/axios';
 import { DictionaryType } from './model/dictionaryModel';
 
 const enum Api {

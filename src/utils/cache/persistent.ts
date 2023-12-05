@@ -15,8 +15,8 @@ import {
   MULTIPLE_TABS_KEY,
   AXIOS_CACHE_KEY,
   REFRESH_TOKEN_KEY,
-} from '/@/enums/cacheEnum';
-import { DEFAULT_CACHE_TIME } from '/@/settings/encryptionSetting';
+} from '@/enums/cacheEnum';
+import { DEFAULT_CACHE_TIME } from '@/settings/encryptionSetting';
 import { toRaw } from 'vue';
 import { pick, omit } from 'lodash-es';
 

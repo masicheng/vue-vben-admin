@@ -1,7 +1,7 @@
 import type { AxiosRequestConfig } from 'axios';
-import { AXIOS_CACHE_KEY } from '/@/enums/cacheEnum';
+import { AXIOS_CACHE_KEY } from '@/enums/cacheEnum';
 import { isString, isPlainObject } from 'lodash-es';
-import { getAuthCache, setAuthCache } from '/@/utils/auth';
+import { getAuthCache, setAuthCache } from '@/utils/auth';
 
 export class AxiosCache {
   keyCached: Map<any, string>;

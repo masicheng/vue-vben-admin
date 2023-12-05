@@ -1,4 +1,4 @@
-import { add } from '/@/components/Form/src/componentMap';
+import { add } from '@/components/Form/src/componentMap';
 import HdCaseNumber from './components/HdCaseNumber.vue';
 import HdDateRange from './components/HdDateRange.vue';
 

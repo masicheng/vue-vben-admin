@@ -27,10 +27,10 @@
 
 <script setup lang="ts">
   import { RangePicker, Row, Col, FormItemRest, Select } from 'ant-design-vue';
-  import { getDictList } from '/@/api/sys/dictionary';
+  import { getDictList } from '@/api/sys/dictionary';
   import { ref, nextTick, watch, onMounted } from 'vue';
   import dayjs, { Dayjs } from 'dayjs';
-  import { useRuleFormItem } from '/@/hooks/component/useFormItem';
+  import { useRuleFormItem } from '@/hooks/component/useFormItem';
 
   type RangeDate = [Dayjs?, Dayjs?] | undefined;
   type OptionsItem = { label: string; value: string; disabled?: boolean };

@@ -7,9 +7,9 @@
  * @exports:{function} getMenuList
  */
 import { getMenuListResultModel } from './model/menuModel';
-import { asyncRoutes } from '/@/router/routes';
-import { AppRouteRecordRaw } from '/@/router/types';
-import { defHttp } from '/@/utils/http/axios';
+import { asyncRoutes } from '@/router/routes';
+import { AppRouteRecordRaw } from '@/router/types';
+import { defHttp } from '@/utils/http/axios';
 
 enum Api {
   GetMenuList = '/core/auth/menu/getUserMenuTree',

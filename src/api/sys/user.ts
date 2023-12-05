@@ -1,7 +1,8 @@
 import { defHttp } from '@/utils/http/axios';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 import { ErrorMessageMode } from '#/axios';
-import { ContentTypeEnum } from '/@/enums/httpEnum';
+import { ContentTypeEnum } from '@/enums/httpEnum';
+
 const{HAODA_GLOB_CLIENTID,HAODA_GLOB_SECRETID}=import.meta.env
 enum Api {
   Login = '/oauth2/token',
