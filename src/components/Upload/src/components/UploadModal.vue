@@ -189,7 +189,7 @@
       );
       const { data } = ret;
       item.status = UploadResultStatus.SUCCESS;
-      item.response = data;
+      item.responseData = data;
       return {
         success: true,
         error: null,
@@ -230,26 +230,17 @@
     }
   }
 
-<<<<<<< HEAD
-        if (fileListRef.value.length > maxNumber) {
-          return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
-        }
-        if (isUploadingRef.value) {
-          return createMessage.warning(t('component.upload.saveWarn'));
-        }
-        const fileList: FileItem['responseData'][] = [];
-
   //   点击保存
   function handleOk() {
     const { maxNumber } = props;
 
-        if (fileListRef.value.length > maxNumber) {
-          return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
-        }
-        if (isUploadingRef.value) {
-          return createMessage.warning(t('component.upload.saveWarn'));
-        }
-        const fileList: FileItem['responseData'][] = [];
+    if (fileListRef.value.length > maxNumber) {
+      return createMessage.warning(t('component.upload.maxNumber', [maxNumber]));
+    }
+    if (isUploadingRef.value) {
+      return createMessage.warning(t('component.upload.saveWarn'));
+    }
+    const fileList: FileItem['responseData'][] = [];
 
     for (const item of fileListRef.value) {
       const { status, responseData } = item;
@@ -265,14 +256,14 @@
     closeModal();
     emit('change', fileList);
   }
-      // 转换数据
-      function transformResponseData(responseData: FileItem['responseData']) {
-        if (responseData) {
-          responseData.clmc = responseData?.fjmc;
-          responseData.clgs = responseData?.fjgs;
-        }
-        return responseData;
-      }
+  // 转换数据
+  function transformResponseData(responseData: FileItem['responseData']) {
+    if (responseData) {
+      responseData.clmc = responseData?.fjmc;
+      responseData.clgs = responseData?.fjgs;
+    }
+    return responseData;
+  }
 
   // 点击关闭：则所有操作不保存，包括上传的
   async function handleCloseFunc() {
