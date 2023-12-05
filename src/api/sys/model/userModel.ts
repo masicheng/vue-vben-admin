@@ -33,17 +33,36 @@ export interface LoginResultModel {
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
-  // 人员id
-  ryid: string;
-  // 所属法院
-  fjm: string;
-  // 手机号码
-  sjhm: string | number;
-  // 用户名
-  ryxm: string;
-  // 人员类型
-  rylx: string;
-  // 人员类型名称
-  rylxmc: string;
+  ryid: number|string; // 人员id
+  dlid: string; // 登录账号(ID)
+  rybh: string; // 人员编号（对应职员编码）
+  ryxm: string; // 人员姓名
+  fjm: string; // 机构分级码
+  jgmc: string; // 机构名称
+  fjmArr: string[]; // 机构分级码(数组)
+  ssbmdm: string; // 所属部门代码
+  jgzwdm: string; // 机构职务代码
+  jgzw: string; // 机构职务
+  xzzwdm: string; // 行政职务代码
+  xzzw: string; // 行政职务
+  sfz: string; // 身份证
+  dh: string; // 电话
+  px: number|string; // 排序
+  createtime: string; // 创建时间
+  updatetime: string; // 更新时间
+  sjhm: string; // 手机号
+  bmid: number|string; // 部门id
+  bmjc: string; // 部门简称
+  bmmc: string; // 部门名称
+  rylx: string; // 人员类型
+  rylxmc: string; // 人员类型名称
+  mz: string; // 民族
+  mzmc: string; // 民族名称
+  jg: string; // 籍贯
+  fygzrq: string; // 工作日期
+  zt: string; // 是否启用状态
+  bz: string; // 备注
+  jsmc: string; // 拥有的角色名称
+  jsids: number[]|string[]; // 拥有的角色id
   roles: RoleInfo[];
 }
