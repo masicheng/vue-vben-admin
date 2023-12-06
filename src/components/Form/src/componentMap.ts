@@ -35,6 +35,10 @@ import { CountdownInput } from '@/components/CountDown';
 import { BasicTitle } from '@/components/Basic';
 import { CropperAvatar } from '@/components/Cropper';
 
+//自定义组件
+import HdCaseNumber from './components/HdCaseNumber.vue';
+import HdDateRange from './components/HdDateRange.vue';
+
 const componentMap = new Map<ComponentType, Component>();
 
 componentMap.set('Input', Input);
@@ -78,6 +82,9 @@ componentMap.set('Divider', Divider);
 componentMap.set('CropperAvatar', CropperAvatar);
 
 componentMap.set('BasicTitle', BasicTitle);
+
+componentMap.set('HdCaseNumber', HdCaseNumber);
+componentMap.set('HdDateRange', HdDateRange);
 
 export function add(compName: ComponentType, component: Component) {
   componentMap.set(compName, component);

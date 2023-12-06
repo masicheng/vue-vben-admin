@@ -117,6 +117,9 @@
         transformAh(v);
       }
     },
+    {
+      immediate: true,
+    },
   );
   watch(
     () => state.value,
