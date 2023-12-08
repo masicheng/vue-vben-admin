@@ -79,7 +79,6 @@
     getDataSource,
     formActions: { getFieldsValue },
   } = table;
-  console.log(getBindValues.value);
   const { t } = useI18n();
   const columnsOptions = ref<Option[]>([]);
   const showModal = ref<boolean>(false);
@@ -106,7 +105,6 @@
 
   const title = computed(() => {
     if (isFunction(getBindValues.value.title)) {
-      console.log(getBindValues.value.title({}));
       return getBindValues.value.title({})?.props?.title;
     }
     return '';
