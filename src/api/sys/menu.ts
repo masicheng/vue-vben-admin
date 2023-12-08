@@ -64,7 +64,7 @@ function transformRoutesToObj(routes: AppRouteRecordRaw[]): {
 // 数组重装，返回不隐藏的数组
 function transformAuthRoutesToObj(routes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
   return routes.reduce<AppRouteRecordRaw[]>((acc, curr) => {
-    if (curr.meta?.ignoreAuth) {
+    if (curr.meta?.hideMenu) {
       acc.push(curr);
     }
     if (curr.children) {
