@@ -18,7 +18,6 @@ enum Api {
 const asyncRoutesC = [...asyncRoutes]; // --> !!!使用重解构浅拷贝，防止更改源数据
 const asyncRouteObj = transformRoutesToObj(asyncRoutesC);
 const ignoreAuthRouteObj = transformAuthRoutesToObj(asyncRoutesC);
-
 export const getMenuList = () => {
   return defHttp
     .get<getMenuListResultModel>({
@@ -65,14 +64,11 @@ function transformRoutesToObj(routes: AppRouteRecordRaw[]): {
 // 数组重装，返回不隐藏的数组
 function transformAuthRoutesToObj(routes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
   return routes.reduce<AppRouteRecordRaw[]>((acc, curr) => {
-    if (curr.meta?.hideMenu) {
+    if (curr.meta?.ignoreAuth) {
       acc.push(curr);
     }
     if (curr.children) {
-      const children = transformAuthRoutesToObj(curr.children);
-      if (children.length > 0) {
-        acc.push({ ...curr, children });
-      }
+      curr.children = transformAuthRoutesToObj(curr.children);
     }
     return acc;
   }, []);
@@ -80,12 +76,5 @@ function transformAuthRoutesToObj(routes: AppRouteRecordRaw[]): AppRouteRecordRa
 
 // 将忽视不隐藏的路由添加到源路由中
 function buildRoutes(routes, ignoreAuthRouteObj) {
-  for (const ignoreRoute of ignoreAuthRouteObj) {
-    const route = routes.find((r) => r.path === ignoreRoute.path);
-    if (route) {
-      const { children } = ignoreRoute;
-      route.children.push(...children);
-    }
-  }
-  return routes;
+  return [...routes, ...ignoreAuthRouteObj];
 }
