@@ -35,7 +35,7 @@ function buildRoutes(remoteRoutes: getMenuListResultModel, localRoutes: AppRoute
     for (let j = 0, length = localRoutes.length; j < length; j++) {
       const localItem = localRoutes[j];
       if (remoteItem.qqdz === localItem.path) {
-        localItem.name = remoteItem.cdmc || localItem.name;
+        localItem.meta.title = remoteItem.cdmc || localItem.meta.title;
         if (remoteItem.children?.length && localItem.children?.length) {
           localItem.children = buildRoutes(remoteItem.children, localItem.children);
         }
