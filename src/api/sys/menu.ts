@@ -16,65 +16,33 @@ enum Api {
 }
 
 const asyncRoutesC = [...asyncRoutes]; // --> !!!使用重解构浅拷贝，防止更改源数据
-const asyncRouteObj = transformRoutesToObj(asyncRoutesC);
-const ignoreAuthRouteObj = transformAuthRoutesToObj(asyncRoutesC);
+
 export const getMenuList = () => {
   return defHttp
     .get<getMenuListResultModel>({
       url: Api.GetMenuList,
       params: { sszxt: import.meta.env.HAODA_GLOB_SYSTEMID },
     })
-    .then((res) => {
-      return buildRoutes(transformRoutes(res), ignoreAuthRouteObj);
-    });
+    .then((res) => buildRoutes(res, asyncRoutesC));
 };
 
-// 基于菜单的路由重装
-function transformRoutes(menuListResult: getMenuListResultModel = []): AppRouteRecordRaw[] {
-  if (!menuListResult.length) {
-    return [];
-  }
-  return menuListResult.reduce((routes: AppRouteRecordRaw[], menuItem) => {
-    const key = `_${menuItem.qqdz}`;
-    const route = asyncRouteObj[key];
-    if (route) {
-      routes.push(route);
-      if (menuItem.children?.length) {
-        route.children = transformRoutes(menuItem.children);
+function buildRoutes(remoteRoutes: getMenuListResultModel, localRoutes: AppRouteRecordRaw[]) {
+  let result: AppRouteRecordRaw[] = [];
+  const hideRoutes = localRoutes.filter((item) => item.meta?.hideMenu);
+  localRoutes = localRoutes.filter((item) => !item.meta?.hideMenu);
+  for (let i = 0, length = remoteRoutes.length; i < length; i++) {
+    const remoteItem = remoteRoutes[i];
+    for (let j = 0, length = localRoutes.length; j < length; j++) {
+      const localItem = localRoutes[j];
+      if (remoteItem.qqdz === localItem.path) {
+        localItem.name = remoteItem.cdmc || localItem.name;
+        if (remoteItem.children?.length && localItem.children?.length) {
+          localItem.children = buildRoutes(remoteItem.children, localItem.children);
+        }
+        result.push(localItem);
       }
     }
-    return routes;
-  }, []);
-}
-
-// 数组拍平，reduceignoreAuthRouteObj
-function transformRoutesToObj(routes: AppRouteRecordRaw[]): {
-  [path: string]: AppRouteRecordRaw;
-} {
-  return routes.reduce<{ [path: string]: AppRouteRecordRaw }>((obj, route) => {
-    if (route.children?.length) {
-      Object.assign(obj, transformRoutesToObj(route.children));
-    }
-    const { children, ...noChildRoute } = route;
-    obj[`_${route.path}`] = noChildRoute;
-    return obj;
-  }, {});
-}
-
-// 数组重装，返回不隐藏的数组
-function transformAuthRoutesToObj(routes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
-  return routes.reduce<AppRouteRecordRaw[]>((acc, curr) => {
-    if (curr.meta?.hideMenu) {
-      acc.push(curr);
-    }
-    if (curr.children) {
-      curr.children = transformAuthRoutesToObj(curr.children);
-    }
-    return acc;
-  }, []);
-}
-
-// 将忽视不隐藏的路由添加到源路由中
-function buildRoutes(routes, ignoreAuthRouteObj) {
-  return [...routes, ...ignoreAuthRouteObj];
+  }
+  result = result.concat(hideRoutes);
+  return result;
 }
