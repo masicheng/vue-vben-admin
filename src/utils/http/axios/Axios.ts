@@ -153,32 +153,16 @@ export class VAxios {
       });
     }
 
-    // return this.axiosInstance.request<T>({
-    //   ...config,
-    //   method: 'POST',
-    //   data: formData,
-    //   headers: {
-    //     'Content-type': ContentTypeEnum.FORM_DATA,
-    //     // @ts-ignore
-    //     ignoreCancelToken: true,
-    //   },
-    // });
-
-    return this.request<T>(
-      {
-        ...config,
-        method: 'POST',
-        data: formData,
-        headers: {
-          'Content-type': ContentTypeEnum.FORM_DATA,
-          // @ts-ignore
-          ignoreCancelToken: true,
-        },
+    return this.axiosInstance.request<T>({
+      ...config,
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-type': ContentTypeEnum.FORM_DATA,
+        // @ts-ignore
+        ignoreCancelToken: true,
       },
-      {
-        isTransformResponse: false,
-      },
-    );
+    });
   }
 
   // support form-data
