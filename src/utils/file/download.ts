@@ -1,5 +1,9 @@
 import { openWindow } from '..';
 import { dataURLtoBlob, urlToBase64 } from './base64Conver';
+import { useUserStoreWithOut } from '@/store/modules/user';
+import { useGlobSetting } from '@/hooks/setting';
+
+const { downloadUrl = '' } = useGlobSetting();
 
 /**
  * Download online pictures
@@ -93,4 +97,9 @@ export function downloadByUrl({
 
   openWindow(url, { target });
   return true;
+}
+
+export function getDownloadUrlByFjid(fjid) {
+  const userStore = useUserStoreWithOut();
+  return `${downloadUrl}?fjid=${fjid}&access_token=${userStore.getToken}`;
 }
