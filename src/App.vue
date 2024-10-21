@@ -1,8 +1,12 @@
 <template>
   <ConfigProvider :locale="getAntdLocale" :theme="themeConfig">
-    <AppProvider>
-      <RouterView />
-    </AppProvider>
+    <App>
+      <StyleProvider hash-priority="high" :transformers="[legacyLogicalPropertiesTransformer]">
+        <AppProvider>
+          <RouterView />
+        </AppProvider>
+      </StyleProvider>
+    </App>
   </ConfigProvider>
 </template>
 
@@ -10,7 +14,12 @@
   import { AppProvider } from '@/components/Application';
   import { useTitle } from '@/hooks/web/useTitle';
   import { useLocale } from '@/locales/useLocale';
-  import { ConfigProvider } from 'ant-design-vue';
+  import {
+    ConfigProvider,
+    legacyLogicalPropertiesTransformer,
+    StyleProvider,
+    App,
+  } from 'ant-design-vue';
 
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
   import 'dayjs/locale/zh-cn';

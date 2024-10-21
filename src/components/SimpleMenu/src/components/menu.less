@@ -5,6 +5,8 @@
 @transition-time: 0.2s;
 @menu-dark-subsidiary-color: rgba(255, 255, 255, 0.7);
 
+@menu-dark-active-bg: rgba(0, 0, 0, 0);
+
 .light-border {
   &::after {
     content: '';
@@ -36,7 +38,7 @@
     &-submenu-title {
       position: relative;
       z-index: 1;
-      padding: 12px 20px;
+      padding: 6px 10px;
       transition: all @transition-time @ease-in-out;
       color: @menu-dark-subsidiary-color;
       cursor: pointer;
@@ -53,8 +55,8 @@
     &-dark {
       .@{menu-prefix-cls}-item,
       .@{menu-prefix-cls}-submenu-title {
-        color: @menu-dark-subsidiary-color;
         // background: @menu-dark-active-bg;
+        color: @menu-dark-subsidiary-color;
 
         &:hover {
           color: #fff;
@@ -155,7 +157,7 @@
     &-vertical &-submenu-title {
       position: relative;
       z-index: 1;
-      padding: 14px 24px;
+      padding: 10px 24px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -224,6 +226,7 @@
         .light-border();
       }
       &-active.@{menu-prefix-cls}-submenu {
+        margin: 0;
         color: @primary-color;
       }
 
@@ -264,7 +267,12 @@
     &-dark&-vertical &-submenu-title {
       color: @menu-dark-subsidiary-color;
       &-active:not(.@{menu-prefix-cls}-submenu) {
-        background-color: @primary-color !important;
+        border-radius: 4px;
+        background: linear-gradient(
+          to right,
+          rgb(red(@primary-color) + 19 green(@primary-color) - 11 blue(@primary-color) + 2),
+          rgb(red(@primary-color) + 89 green(@primary-color) + 4 blue(@primary-color) + 34)
+        ) !important;
         color: #fff !important;
       }
 
@@ -277,7 +285,12 @@
       > li.@{menu-prefix-cls}-item-active,
       .@{menu-prefix-cls}-submenu-active {
         position: relative;
-        background-color: @sider-dark-darken-bg-color !important;
+        border-radius: 4px;
+        background: linear-gradient(
+          to right,
+          rgb(red(@primary-color) + 19 green(@primary-color) - 11 blue(@primary-color) + 2),
+          rgb(red(@primary-color) + 89 green(@primary-color) + 4 blue(@primary-color) + 34)
+        ) !important;
         color: #fff !important;
 
         &::before {

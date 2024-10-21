@@ -1,39 +1,27 @@
 @prefix-cls: ~'@{namespace}-multiple-tabs';
-@prefix-cls-default-layout: ~'@{namespace}-default-layout';
 
-html[data-theme='light'] {
+html[data-theme='dark'] {
   .@{prefix-cls} {
-    .ant-tabs-tab:not(.ant-tabs-tab-active) {
-      border: 1px solid #d9d9d9 !important;
+    .ant-tabs-tab {
+      border-bottom: none !important;
     }
   }
 }
 
-.@{prefix-cls-default-layout}-out {
-  &.ant-layout-auto-collapse-tabs {
-    .@{prefix-cls} {
-      margin-top: -(@multiple-height + 2);
-      opacity: 0.1;
-
-      &:hover,
-      &--hover {
-        margin-top: 0;
-        transition-delay: 0s;
-        opacity: 1;
-      }
-    }
-  }
+html[data-theme='light'] {
   .@{prefix-cls} {
-    transition: margin 0.2s ease-in-out 0.6s, opacity 0.2s ease-in-out 0.6s;
+    .ant-tabs-tab:not(.ant-tabs-tab-active) {
+      border: none !important;
+    }
   }
 }
 
 .@{prefix-cls} {
   z-index: 10;
-  height: @multiple-height + 2;
-  border-bottom: 1px solid @border-color-base;
+  height: @multiple-height;
+  border-bottom: 1px solid #d9d9d9;
   background-color: @component-background;
-  line-height: @multiple-height + 2;
+  line-height: @multiple-height;
 
   .ant-tabs-small {
     height: @multiple-height;
@@ -43,43 +31,66 @@ html[data-theme='light'] {
     .ant-tabs-nav {
       height: @multiple-height;
       margin: 0;
-      padding-top: 2px;
+      padding-left: 10px;
       border: 0;
       background-color: @component-background;
       box-shadow: none;
 
       .ant-tabs-nav-container {
         height: @multiple-height;
-        padding-top: 2px;
+        margin-top: 12px;
       }
 
       .ant-tabs-tab {
-        height: calc(@multiple-height - 2px);
-        padding-right: 12px;
-        transition: none;
+        position: relative;
+        z-index: 1;
+        height: calc(@multiple-height - 1px);
+        margin: 0 -14px 0 0 !important;
+        padding: 0 20px;
+        transition: padding 0.3s;
+        border-right: 1px solid #d9d9d9 !important;
+        border-radius: 0;
         background-color: @component-background;
         color: @text-color-base;
-        line-height: calc(@multiple-height - 2px);
+        line-height: calc(@multiple-height - 1px);
+
+        .ant-tabs-tab-btn {
+          color: @text-color-base;
+        }
 
         &:hover {
-          .ant-tabs-tab-remove {
+          z-index: 2;
+
+          .ant-tabs-tab-remove .anticon-close {
             opacity: 1;
           }
         }
 
         .ant-tabs-tab-remove {
-          width: 8px;
-          height: 28px;
-          margin-right: -4px;
-          margin-left: 2px;
-          transition: none;
-          opacity: 0;
-          color: inherit;
-          font-size: 12px;
+          position: relative;
+          top: 0;
+          left: 0;
+          margin-right: -20px;
+          margin-left: 0;
 
-          &:hover {
-            svg {
-              width: 0.8em;
+          .anticon-close {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            overflow: hidden;
+            transform-origin: 100% 50%;
+            transition: opacity 0.15s;
+            border-radius: 100%;
+            opacity: 0;
+            color: inherit;
+            font-size: 18px;
+            line-height: 18px;
+            vertical-align: middle;
+
+            &:hover {
+              svg {
+                fill: #ff0303;
+              }
             }
           }
         }
@@ -93,32 +104,55 @@ html[data-theme='light'] {
         svg {
           fill: @text-color-base;
         }
+
+        &:first-child {
+          padding: 0 16px !important;
+          border-left: 1px solid #d9d9d9 !important;
+        }
       }
 
       .ant-tabs-tab:not(.ant-tabs-tab-active) {
         &:hover {
-          color: @primary-color;
+          background-color: #dee1e6;
+          color: inherit;
         }
       }
 
       .ant-tabs-tab-active {
         position: relative;
-        padding-left: 18px;
-        transition: none;
+        z-index: 3;
+        padding: 0 20px;
         border: 0;
-        background: @primary-color;
+        background-image: linear-gradient(
+          to right,
+          lighten(@primary-color, 10%),
+          @primary-color
+        ) !important;
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 100% 2px;
+        color: @primary-color !important;
+        font-weight: inherit;
 
         span {
-          color: @white !important;
+          color: @primary-color !important;
         }
 
-        .ant-tabs-tab-remove {
+        .ant-tabs-tab-btn {
+          color: @primary-color;
+        }
+
+        .ant-tabs-tab-remove .anticon-close {
           opacity: 1;
+
+          svg {
+            width: 0.6em;
+          }
         }
 
         svg {
-          width: 0.7em;
-          fill: @white;
+          width: inherit;
+          fill: white;
         }
       }
     }
@@ -127,7 +161,7 @@ html[data-theme='light'] {
       padding: 0 6px;
 
       .ant-tabs-tab {
-        margin-right: 3px !important;
+        margin-right: 0 !important;
       }
     }
   }
@@ -142,13 +176,19 @@ html[data-theme='light'] {
     }
   }
 
+  .ant-tabs-extra-content {
+    position: relative;
+    top: 0;
+    line-height: calc(@multiple-height - 12px) !important;
+  }
+
   .ant-dropdown-trigger {
     display: inline-flex;
   }
 
   &--hide-close {
-    .ant-tabs-tab-remove {
-      opacity: 0 !important;
+    .ant-tabs-tab-remove .anticon-close {
+      opacity: 0.3 !important;
     }
   }
 
@@ -184,11 +224,16 @@ html[data-theme='light'] {
       display: inline-block;
       width: 100%;
       height: @multiple-height - 2;
-      margin-left: -10px;
       padding-left: 0;
-      font-size: 12px;
+      font-size: 14px;
       cursor: pointer;
       user-select: none;
+    }
+
+    &__prefix-icon {
+      & .app-iconify.anticon {
+        margin-right: 4px;
+      }
     }
   }
 }
@@ -214,6 +259,6 @@ html[data-theme='light'] {
 
 .multiple-tabs__dropdown {
   .ant-dropdown-content {
-    width: 172px;
+    width: 148px;
   }
 }

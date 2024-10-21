@@ -2,6 +2,9 @@
 @prefix-cls: ~'@{namespace}-menu';
 
 .@{prefix-cls} {
+  &-item {
+    margin: 4px;
+  }
   &-dark&-vertical .@{simple-prefix-cls}__parent {
     background-color: @sider-dark-bg-color;
     > .@{prefix-cls}-submenu-title {
@@ -9,11 +12,32 @@
     }
   }
 
+  &-dark&-collapse {
+    .@{simple-prefix-cls}__parent {
+      margin: 4px;
+    }
+  }
+
+  &-dark&-popup {
+    padding: 4px 0;
+
+    .@{simple-prefix-cls}__children {
+      &.@{prefix-cls}-item-selected {
+        .@{simple-prefix-cls}-sub-title {
+          color: #fff;
+        }
+      }
+      .@{simple-prefix-cls}-sub-title {
+        color: rgb(0 0 0 / 80%);
+      }
+    }
+  }
+
   &-dark&-vertical .@{simple-prefix-cls}__children,
   &-dark&-popup .@{simple-prefix-cls}__children {
-    background-color: @sider-dark-lighten-bg-color;
+    background-color: transparent;
     > .@{prefix-cls}-submenu-title {
-      background-color: @sider-dark-lighten-bg-color;
+      background-color: transparent;
     }
   }
 
