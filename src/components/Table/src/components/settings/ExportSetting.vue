@@ -169,6 +169,7 @@
       return;
     }
     changeOkLoading(true);
+
     try {
       if (fields.exportRange == '1') {
         const data = await exportTabelByApi({
@@ -176,9 +177,9 @@
           exportCols,
           ...getFieldsValue(),
           pageNumber: 1,
-          pageSize: 20,
+          pageSize: table.getPaginationRef()?.total,
         });
-        saveAs(data, fields.filename);
+        saveAs(data, fields.filename + '.xlsx');
       } else {
         const header = {};
         exportCols.forEach((item) => {
