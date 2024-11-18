@@ -1,25 +1,29 @@
 <template>
   <ConfigProvider :locale="getAntdLocale" :theme="themeConfig">
-    <App>
-      <StyleProvider hash-priority="high" :transformers="[legacyLogicalPropertiesTransformer]">
-        <AppProvider>
-          <RouterView />
-        </AppProvider>
-      </StyleProvider>
-    </App>
+    <StyleProvider
+      hash-priority="high"
+      :transformers="[legacyLogicalPropertiesTransformer]"
+      v-if="showLowApp"
+    >
+      <AppProvider>
+        <RouterView />
+      </AppProvider>
+    </StyleProvider>
+    <AppProvider v-else>
+      <RouterView />
+    </AppProvider>
   </ConfigProvider>
 </template>
 
 <script lang="ts" setup>
+  import {
+    legacyLogicalPropertiesTransformer,
+    ConfigProvider,
+    StyleProvider,
+  } from 'ant-design-vue';
   import { AppProvider } from '@/components/Application';
   import { useTitle } from '@/hooks/web/useTitle';
   import { useLocale } from '@/locales/useLocale';
-  import {
-    ConfigProvider,
-    legacyLogicalPropertiesTransformer,
-    StyleProvider,
-    App,
-  } from 'ant-design-vue';
 
   import { useDarkModeTheme } from '@/hooks/setting/useDarkModeTheme';
   import 'dayjs/locale/zh-cn';
@@ -44,6 +48,16 @@
       isDark.value ? darkTheme : {},
     ),
   );
+
+  const getChromeVersion = () => {
+    var raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+
+    return raw ? parseInt(raw[2], 10) : false;
+  };
+
+  const chromeVersion = getChromeVersion();
+
+  const showLowApp = computed(() => chromeVersion && chromeVersion < 88); // chromeVersion && chromeVersion < 88
   // Listening to page changes and dynamically changing site titles
   useTitle();
 </script>
