@@ -17,6 +17,12 @@ enum Api {
 
 const asyncRoutesC = [...asyncRoutes]; // --> !!!使用重解构浅拷贝，防止更改源数据
 
+const isUrl = function (url) {
+  return /^(((ht|f)tps?):\/\/)?([^!@#$%^&*?.\s-]([^!@#$%^&*?.\s]{0,63}[^!@#$%^&*?.\s])?\.)+[a-z]{2,6}\/?/.test(
+    url,
+  );
+};
+
 export const getMenuList = () => {
   return defHttp
     .get<getMenuListResultModel>({
@@ -36,6 +42,13 @@ function buildRoutes(remoteRoutes: getMenuListResultModel, localRoutes: AppRoute
       const localItem = localRoutes[j];
       if (remoteItem.qqdz === localItem.path) {
         localItem.meta.title = remoteItem.cdmc || localItem.meta.title;
+        if (remoteItem.wwqqdz && isUrl(remoteItem.wwqqdz)) {
+          if (remoteItem.sfdkxym == '1') {
+            localItem.path = remoteItem.wwqqdz;
+          } else {
+            localItem.meta.frameSrc = remoteItem.wwqqdz;
+          }
+        }
         if (remoteItem.children?.length && localItem.children?.length) {
           localItem.children = buildRoutes(remoteItem.children, localItem.children);
         }
