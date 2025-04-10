@@ -1,13 +1,17 @@
 <template>
   <Tooltip placement="top" title="导出" class="anticon">
-    <Icon icon="file-icons:microsoft-excel" @click="showModal = true" />
+    <Icon
+      icon="file-icons:microsoft-excel"
+      @click="handleClick"
+      class="!text-14px cursor-pointer"
+    />
     <BasicModal
       v-bind="$attrs"
       :title="t('component.excel.exportModalTitle')"
       @ok="handleOk"
       @register="registerModal"
       @cancel="resetAllFields"
-      v-model:visible="showModal"
+      v-model:open="showModal"
     >
       <BasicForm
         :labelWidth="100"
@@ -21,7 +25,7 @@
             <span>{{ model[field] }}</span>
             <CheckboxGroup v-model:value="checkedColumns">
               <Row>
-                <Col :span="12" v-for="item of columnsOptions" :key="item.dataIndex">
+                <Col :span="12" v-for="item of columnsOptions" :key="item.value">
                   <Checkbox :disabled="item.disabled" :value="item.value">{{
                     item.label
                   }}</Checkbox>
@@ -40,7 +44,7 @@
   import Icon from '@/components/Icon/Icon.vue';
   import { ref, computed, watch } from 'vue';
   import { useI18n } from '@/hooks/web/useI18n';
-  import { useTableContext } from '../../hooks/useTableContext';
+  import { useTableContext } from '@/components/Table/src/hooks/useTableContext';
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { BasicForm, FormSchema, useForm } from '@/components/Form/index';
   import { isFunction } from '@/utils/is';
@@ -79,6 +83,7 @@
   const columnsOptions = ref<Option[]>([]);
   const showModal = ref<boolean>(false);
   const checkedColumns = ref<string[]>([]);
+
   watch(
     () => getBindValues.value.columns,
     (columns) => {
@@ -97,9 +102,10 @@
       });
     },
   );
+
   const title = computed(() => {
     if (isFunction(getBindValues.value.title)) {
-      return getBindValues.value.title()?.props?.title;
+      return getBindValues.value.title({})?.props?.title;
     }
     return '';
   });
@@ -163,6 +169,7 @@
       return;
     }
     changeOkLoading(true);
+
     try {
       if (fields.exportRange == '1') {
         const data = await exportTabelByApi({
@@ -170,15 +177,14 @@
           exportCols,
           ...getFieldsValue(),
           pageNumber: 1,
-          pageSize: 20,
+          pageSize: table.getPaginationRef()?.total,
         });
-        saveAs(data, fields.filename);
+        saveAs(data, fields.filename + '.xlsx');
       } else {
         const header = {};
         exportCols.forEach((item) => {
           header[`${item.field}`] = item.title;
         });
-        console.log(header, getDataSource());
         const picks = Object.keys(header);
         exportTableLocal({
           data: getDataSource().map((item) => pick(item, picks)),
@@ -187,8 +193,9 @@
         });
       }
       closeModal();
-      changeOkLoading(false);
     } catch (error) {
+      console.log(error);
+    } finally {
       changeOkLoading(false);
     }
   }
@@ -203,6 +210,11 @@
       }
     });
     return exportCols;
+  }
+
+  // 点击事件
+  function handleClick() {
+    showModal.value = true;
   }
   // 导出的列,
   function exportTabelByApi(params: exportModel) {
@@ -219,7 +231,6 @@
 
   function resetAllFields() {
     resetFields();
-    // checkedColumns.value = [];
   }
 </script>
 

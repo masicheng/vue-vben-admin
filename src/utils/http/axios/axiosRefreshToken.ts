@@ -17,7 +17,6 @@ export class AxiosRefreshToken {
   }
 
   public refeshing(response: AxiosResponse<any>) {
-    console.log('response', response);
     const userStore = useUserStoreWithOut();
     if (!this.isRefreshing) {
       this.isRefreshing = true;
@@ -35,7 +34,7 @@ export class AxiosRefreshToken {
           return defHttp.request(response.config, { joinPrefix: false });
         })
         .catch((err) => {
-          if (err.code == '400') {
+          if (err.code == '511') {
             userStore.setSessionTimeout(true);
             userStore.setToken(undefined);
             userStore.setRefreshToken(undefined);

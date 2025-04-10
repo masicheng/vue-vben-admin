@@ -33,3 +33,10 @@ pnpm-debug.log*
 
 src/views/demo
 src/router/routes/modules/demo
+src/api/controller/*
+!src/api/controller/.gitkeep
+src/api/interface
+src/views/modules/*
+!src/views/modules/.gitkeep
+src/views/components/*
+!src/views/components/.gitkeep

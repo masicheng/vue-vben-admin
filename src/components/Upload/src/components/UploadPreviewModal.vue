@@ -16,12 +16,10 @@
   import { BasicModal, useModalInner } from '@/components/Modal';
   import { previewProps } from '../props';
   import { PreviewFileItem } from '../types/typing';
-  import { downloadByUrl } from '@/utils/file/download';
+  import { downloadByUrl, getDownloadUrlByFjid } from '@/utils/file/download';
   import { createPreviewColumns, createPreviewActionColumn } from './data';
   import { useI18n } from '@/hooks/web/useI18n';
   import { isArray } from '@/utils/is';
-  import { useGlobSetting } from '@/hooks/setting';
-  import { useUserStore } from '@/store/modules/user';
 
   const props = defineProps(previewProps);
 
@@ -32,8 +30,7 @@
 
   const [register] = useModalInner();
   const { t } = useI18n();
-  const { downloadUrl = '' } = useGlobSetting();
-  const userStore = useUserStore();
+
   const fileListRef = ref<PreviewFileItem[]>([]);
   watch(
     () => props.value,
@@ -44,7 +41,7 @@
         .map((item) => {
           return {
             fileID: item?.fjid,
-            url: getUrlbyFjid(item?.fjid),
+            url: getDownloadUrlByFjid(item?.fjid),
             type: item?.fjgs || item?.clgs,
             name: item?.fjmc || item?.clmc,
           } as PreviewFileItem;
@@ -53,14 +50,9 @@
     { immediate: true },
   );
 
-  function getUrlbyFjid(fjid) {
-    return `${downloadUrl}?fjid=${fjid}&access_token=${userStore.getToken}`;
-  }
-
   // 删除
   function handleRemove(record: PreviewFileItem) {
     const index = fileListRef.value.findIndex((item) => item.fileID === record.fileID);
-    console.log(index);
     if (index !== -1) {
       const removed = fileListRef.value.splice(index, 1);
       const fileList = props.value;
